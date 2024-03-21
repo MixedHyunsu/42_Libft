@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyunski2 <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/12 14:19:31 by hyunski2          #+#    #+#             */
-/*   Updated: 2024/03/12 14:19:33 by hyunski2         ###   ########.fr       */
+/*   Created: 2024/03/16 16:05:40 by hyunski2          #+#    #+#             */
+/*   Updated: 2024/03/16 16:05:43 by hyunski2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	num;
-	int	sign;
+	char	*str;
+	size_t	s_len;
 
-	sign = 1;
-	num = 0;
-	while (*str && ft_strchr(" \n\t\v\f\r", *str))
-		str++;
-	if (*str == '-')
-		sign = -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str && *str >= '0' && *str <= '9')
-	{
-		num = num * 10 + (*str - '0');
-		str++;
-	}
-	return (num * sign);
+	if (s == NULL)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (start + len > s_len)
+		len = s_len - start;
+	str = (char *)malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
+		return (NULL);
+	ft_strlcpy(str, s + start, len + 1);
+	return (str);
 }
